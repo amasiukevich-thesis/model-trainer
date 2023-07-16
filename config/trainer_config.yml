@@ -1,0 +1,39 @@
+variables:
+  - &SERIES_LENGTH  150
+  - &BATCH_SIZE     64
+
+UNIX_TIME_COL:  "unix"
+
+# TODO: For now - static training
+# TODO: In future make it automatic - to pull from database
+
+TRAIN_FILE_PATH:  "data/rates_train.csv"
+VAL_FILE_PATH:    "data/rates_val.csv"
+
+
+TRAIN_LOSS_DIR: "logs/"
+MODEL_CLASS_NAME: "lstm"
+MODEL_SAVE_DIR: "model_artifacts/"
+
+
+MODEL_CONFIG:
+  seq_len:        *SERIES_LENGTH
+  batch_size:     *BATCH_SIZE
+  n_features:     1
+  hidden_size:    150
+  num_layers:     2
+  dropout_prob:   0.3
+  learning_rate:  0.001
+
+
+
+DATA_MODULE_PARAMS:
+  seq_len: *SERIES_LENGTH
+  batch_size: *BATCH_SIZE
+
+
+TRAINER_PARAMS:
+  max_epochs: 5
+  accelerator: mps
+  devices: 1
+
